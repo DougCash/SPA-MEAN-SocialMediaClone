@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "udemy-MEAN"
+    }
+  },
+  "defaultProject": "udemy-MEAN",
+  "cli": {
+    "analytics": "18854d22-dcea-41f7-bf8d-42c100da7019"
+  }
 }
