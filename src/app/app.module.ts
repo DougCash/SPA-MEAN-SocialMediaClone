@@ -13,6 +13,9 @@ import { PostCreateComponent} from './posts/post-create/post-create.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
+import { AppRoutingModule } from './app-routing.module';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
+
 
 @NgModule({
   declarations: [
@@ -24,6 +27,7 @@ import { HeaderComponent } from './header/header.component';
   imports: [
     FormsModule,
     BrowserModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     MatInputModule,
     MatCardModule,
@@ -31,6 +35,7 @@ import { HeaderComponent } from './header/header.component';
     MatToolbarModule,
     MatExpansionModule,
     HttpClientModule,
+    MatProgressSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
