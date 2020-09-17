@@ -16,6 +16,8 @@ import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatPaginatorModule } from '@angular/material/paginator'
+import { LoginComponent } from './auth/login/login.component'
+import { FormsModule } from '@angular/forms'
 
 
 @NgModule({
@@ -24,9 +26,11 @@ import { MatPaginatorModule } from '@angular/material/paginator'
     PostCreateComponent,
     HeaderComponent,
     PostListComponent,
+    LoginComponent,
   ],
   imports: [
     ReactiveFormsModule,
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

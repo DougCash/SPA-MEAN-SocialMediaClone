@@ -5,7 +5,6 @@ import { map } from "rxjs/operators";
 import { Router } from "@angular/router";
 
 import { Post } from "./posts.model";
-import { query } from '@angular/animations';
 
 @Injectable({ providedIn: "root" })
 export class PostsService {
