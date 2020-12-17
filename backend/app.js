@@ -4,6 +4,7 @@ const mongoose = require('mongoose')
 const path = require ('path')
 const postsRoutes = require('./routes/posts')
 const userRoutes = require('./routes/user')
+const dotenv = require('dotenv')
 
 const app = express();
 
@@ -11,11 +12,14 @@ app.use(bodyParser.json());
 //below not going to be used, just adding as reminder that it exists.
 //app.use(bodyParser.urlencoded({extended: false }));
 
-app.use("/images", express.static(path.join("backend/images")));
+dotenv.config()
 
+app.use("/images", express.static(path.join("backend/images")));
+console.log(process.env.MONGO_ATLAS_PW)
 mongoose.connect("mongodb+srv://admin:JClxzdCVJu7iHt7z@udemymean.xfnoz.mongodb.net/udemy-mean?retryWrites=true&w=majority").then(() => {
   console.log('Connected to Database!');
 }).catch(() => {
+  console.log(process.env.MONGO_ATLAS_PW)
   console.log('Connection to Database Failed!')
 });
 
