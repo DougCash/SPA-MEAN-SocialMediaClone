@@ -1,6 +1,4 @@
-const multer = require("multer");
 const Post = require("../models/post");
-const checkAuth = require("../middleware/check-auth");
 
 exports.createPost = (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
@@ -10,7 +8,9 @@ exports.createPost = (req, res, next) => {
       imagePath: url + "/images/" + req.file.filename,
       creator: req.userData.userId
     });
-    post.save().then(createdPost => {
+    post
+    .save()
+    .then(createdPost => {
       res.status(201).json({
         message: "Post added successfully",
         post: {
@@ -18,7 +18,8 @@ exports.createPost = (req, res, next) => {
           id: createdPost._id
         }
       });
-    }).catch(error => {
+    })
+    .catch(error => {
       res.status(500).json({
         message: "Creating a post failed!"
       })
@@ -104,7 +105,7 @@ exports.createPost = (req, res, next) => {
         })
         .catch(error => {
           res.status(500).json({
-            message: "Fetching posts failed!"
+            message: "Deleting posts failed!"
           });
         });
       }

@@ -20,6 +20,4 @@ import { MatPaginatorModule } from '@angular/material/paginator'
         MatDialogModule,
     ]
 })
-export class AngularMaterialModule {
-
-}
+export class AngularMaterialModule {}

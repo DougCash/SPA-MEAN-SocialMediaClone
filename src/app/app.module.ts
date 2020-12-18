@@ -9,7 +9,7 @@ import { HeaderComponent } from './header/header.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AuthInterceptor } from "./auth/auth-interceptor"
-import { ErrorInterceptor } from "error-interceptor"
+import { ErrorInterceptor } from "src/app/error-interceptor"
 import { ErrorComponent } from "./error/error.component"
 import { PostsModule } from "./posts/posts.module"
 
