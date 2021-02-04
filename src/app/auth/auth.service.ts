@@ -5,10 +5,12 @@ import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { environment } from "../../environments/environment"
 
+//Want to grab right API endpoint
 const BACKEND_URL = environment.apiUrl + "/user/"
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
+  //Set default states
   private isAuthenticated = false;
   private token: string;
   private tokenTimer: any;
@@ -16,6 +18,7 @@ export class AuthService {
   private authStatusListener = new Subject<boolean>();
   constructor(private http: HttpClient, private router: Router) {}
 
+  //Used by Auth-interceptor
   getToken(){
     return this.token
   }

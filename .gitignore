@@ -46,5 +46,6 @@ testem.log
 .DS_Store
 Thumbs.db
 
+#Don't need to duplicate angular folder when going to deploy, also don't need to push images.
 backend/images
 backend/angular

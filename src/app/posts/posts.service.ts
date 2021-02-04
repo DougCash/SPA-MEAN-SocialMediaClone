@@ -7,14 +7,18 @@ import { Router } from "@angular/router";
 import { Post } from "./posts.model";
 import { environment } from "../../environments/environment"
 
+//Gives us access to send requests to API
 const BACKEND_URL = environment.apiUrl + "/posts/"
 
 @Injectable({ providedIn: "root" })
+//Service class that acts as the intermediate between front end and controller
+//Components shouldn't fetch or save data directly, they focus on presenting, services handle access
 export class PostsService {
   private posts: Post[] = [];
   private postsUpdated = new Subject<{posts: Post[], postCount: number}>();
 
   constructor(private http: HttpClient, private router: Router) {}
+
 
   getPosts(postsPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
@@ -36,6 +40,7 @@ export class PostsService {
         };
       })
       )
+      //Want to listen for changes to our post data, this will cause us to update the list of posts
       .subscribe(transformedPostData => {
         console.log(transformedPostData);
         this.posts = transformedPostData.posts;
@@ -43,6 +48,7 @@ export class PostsService {
       });
   }
 
+  //Provides a listener for any changes to our postList
   getPostUpdateListener() {
     return this.postsUpdated.asObservable();
   }
@@ -58,11 +64,13 @@ export class PostsService {
     postData.append("title", title);
     postData.append("content", content);
     postData.append("image", image, title);
+    //Send the data to our API
     this.http
       .post<{ message: string; post: Post }>(
         BACKEND_URL,
         postData
       )
+      //When we get a response, we can route to index.html
       .subscribe(responseData => {
         this.router.navigate(["/"]);
       });

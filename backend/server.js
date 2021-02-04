@@ -2,6 +2,7 @@ const http = require('http');
 const app = require('./app');
 const debug = require("debug")("node-angular");
 
+//Set up port
 const normalizePort = val => {
   var port = parseInt(val,10);
 
@@ -16,6 +17,7 @@ const normalizePort = val => {
   return false;
 };
 
+//If issue with setting up the connection
 const onError = error => {
   if (error.syscall !== "listen"){
     throw error;
@@ -41,9 +43,11 @@ const onListening = () => {
   debug("Listening on " + bind);
 };
 
+//If we get a port from the host, use it, otherwise lets use 3000
 const port = normalizePort(process.env.PORT || 3000);
 app.set('port', port);
 
+//Config and launch server
 const server = http.createServer(app);
 server.on("error", onError);
 server.on("listening", onListening);

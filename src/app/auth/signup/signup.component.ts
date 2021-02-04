@@ -10,7 +10,8 @@ import { AuthService } from '../auth.service'
 export class SignupComponent implements OnInit, OnDestroy{
   isLoading = false;
   private authStatusSub: Subscription;
-
+  
+  //Basically signing up to ensure that they're logged in when trying to create/edit, and to handle possible sign up
   constructor(public authService: AuthService) {}
 
   ngOnInit(){

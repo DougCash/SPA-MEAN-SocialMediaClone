@@ -14,6 +14,7 @@ import { AuthService } from "src/app/auth/auth.service";
   styleUrls: ["./post-create.component.css"]
 })
 export class PostCreateComponent implements OnInit, OnDestroy {
+  //Initialize default states
   enteredTitle = "";
   enteredContent = "";
   post: Post;
@@ -24,17 +25,21 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   private postId: string;
   private authStatusSub: Subscription;
 
+  //Want access to service files and routes
   constructor(
     public postsService: PostsService,
     public route: ActivatedRoute,
     private authService: AuthService
   ) {}
 
+  //When starting up
   ngOnInit() {
+    //Check that they can even create a post
     this.authStatusSub =this.authService.getAuthStatusListener().subscribe(
       authStatus => {
         this.isLoading = false;
       });
+    //If they're allowed, they can fill out the form with the given requirements
     this.form = new FormGroup({
       title: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
@@ -45,6 +50,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
         asyncValidators: [mimeType]
       })
     });
+    //If we're editing instead (same component)
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has("postId")) {
         this.mode = "edit";
@@ -65,13 +71,16 @@ export class PostCreateComponent implements OnInit, OnDestroy {
             image: this.post.imagePath
           });
         });
-      } else {
+      } 
+      //If we're not editing, then it must be creating
+      else {
         this.mode = "create";
         this.postId = null;
       }
     });
   }
-
+  
+  //Handles image upload
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });
@@ -83,6 +92,8 @@ export class PostCreateComponent implements OnInit, OnDestroy {
     reader.readAsDataURL(file);
   }
 
+  //Handles saving the posts (uses postsService)
+  //Reset form
   onSavePost() {
     if (this.form.invalid) {
       return;
@@ -106,6 +117,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
   }
 
 
+  //Unsub when no longer needed
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
   }

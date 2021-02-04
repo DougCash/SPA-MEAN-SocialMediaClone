@@ -12,11 +12,7 @@ import { AuthService } from 'src/app/auth/auth.service';
   styleUrls: ["./post-list.component.css"]
 })
 export class PostListComponent implements OnInit, OnDestroy {
-  // posts = [
-  //   { title: "First Post", content: "This is the first post's content" },
-  //   { title: "Second Post", content: "This is the second post's content" },
-  //   { title: "Third Post", content: "This is the third post's content" }
-  // ];
+
   posts: Post[] = [];
   isLoading = false;
   private postsSub: Subscription;
@@ -28,9 +24,12 @@ export class PostListComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
   userId: string;
 
+  //We want access to that posts.service file 
   constructor(public postsService: PostsService, private authService: AuthService) {}
 
+  //On startup
   ngOnInit() {
+    //Set to loading, get posts, track user, set up post listener
     this.isLoading = true;
     this.postsService.getPosts(this.postsPerPage, this.currentPage);
     this.userId = this.authService.getUserId();
@@ -40,6 +39,7 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.totalPosts = postData.postCount;
         this.posts = postData.posts;
       });
+    //check authentication, set up subscription to track this
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userId = this.authService.getUserId();
@@ -47,6 +47,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     });
   }
 
+  //When changing page, adjust variables involved with pagination
   onChangedPage(pageData: PageEvent) {
     this.isLoading = true;
     this.currentPage = pageData.pageIndex + 1;
@@ -63,6 +64,7 @@ export class PostListComponent implements OnInit, OnDestroy {
     });
   }
 
+  //When 'destroyed' no need for any subscriptions
   ngOnDestroy() {
     this.postsSub.unsubscribe();
     this.authStatusSub.unsubscribe();

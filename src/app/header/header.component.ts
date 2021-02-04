@@ -13,6 +13,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
+    //This is important to grab, we change the header based on logged in or not (if not logged in, can't see 'create post')
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService.getAuthStatusListener().subscribe(isAuthenticated => {
       this.userIsAuthenticated = isAuthenticated;

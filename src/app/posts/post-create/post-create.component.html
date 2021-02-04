@@ -1,3 +1,5 @@
+<!-- HTML calls component.ts, which calls a service since components just display.
+Service file calls the controller, which actually allows access to the data -->
 <mat-card>
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <form [formGroup]="form" (submit)="onSavePost()" *ngIf="!isLoading">

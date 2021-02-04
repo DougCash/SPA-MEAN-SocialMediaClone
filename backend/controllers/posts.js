@@ -1,5 +1,7 @@
+//Database model
 const Post = require("../models/post");
 
+//Create Post
 exports.createPost = (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
     const post = new Post({
@@ -26,6 +28,7 @@ exports.createPost = (req, res, next) => {
     })
   }
 
+  //Update a Post
   exports.updatePost = (req, res, next) => {
     let imagePath = req.body.imagePath;
     if (req.file) {
@@ -39,7 +42,7 @@ exports.createPost = (req, res, next) => {
       imagePath: imagePath,
       creator: req.userData.userId
     });
-    console.log(post);
+    //Check that the author is the one trying to adjust the post
     Post.updateOne({ _id: req.params.id, creator: req.userData.userId}, post).then(result => {
       if(result.n > 0){
         res.status(200).json({ message: "Update successful!" });
@@ -54,12 +57,16 @@ exports.createPost = (req, res, next) => {
     });
   }
 
+  //Get Posts (all Posts, homepage)
   exports.getPosts = (req, res, next) => {
     //+ operator converts from string to numeric (needed for postQuery chained functions below)
     const pageSize = +req.query.pagesize;
     const currentPage = +req.query.page;
+
+    //Get's all of em
     const postQuery = Post.find();
     let fetchedPosts;
+    //Handles pagination
     if (pageSize && currentPage) {
       postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
     }
@@ -81,6 +88,7 @@ exports.createPost = (req, res, next) => {
       });
     }
 
+    //Get an individual post by id
     exports.getPost = (req, res, next) => {
         Post.findById(req.params.id).then(post => {
           if (post) {
@@ -95,7 +103,9 @@ exports.createPost = (req, res, next) => {
         });
       }
 
+    //Delete a specific post by id
     exports.deletePost = (req, res, next) => {
+      //Check that the author is the one trying to delete
         Post.deleteOne({ _id: req.params.id, creator: req.userData.userId }).then(result => {
           if(result.n > 0){
             res.status(200).json({ message: "Delete successful!" });
