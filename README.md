@@ -12,6 +12,9 @@ Supports creating, reading, updating and deleting of data
 Sign-up and Login required to create  
 Utilized middleware to handle authorization and authentication  
 Images are stored on Node.js server, and then references/link are stored in MongoDB 
+Used bcrypt to handle encryption of user sensitive information  
+JWT to let users remain signed in for an hour through cookies  
+Services/Subscriptions to handle communication of data for the components  (observer)
 
 ## Running Locally
 cd backend  
