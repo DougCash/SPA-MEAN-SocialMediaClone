@@ -14,7 +14,7 @@ Utilized middleware to handle authorization and authentication
 Images are stored on Node.js server, and then references/link are stored in MongoDB 
 
 ## Running Locally
-cd backend
-node server.js: starts up the backend and connects to the Mongo DB
-cd..
-ng serve: starts up angular server
+cd backend  
+node server.js: starts up the backend and connects to the Mongo DB  
+cd..  
+ng serve: starts up angular server  
